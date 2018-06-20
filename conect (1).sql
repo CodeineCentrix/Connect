@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 19, 2018 at 03:04 PM
+-- Generation Time: Jun 20, 2018 at 05:11 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -26,6 +26,10 @@ DELIMITER $$
 --
 -- Procedures
 --
+DROP PROCEDURE IF EXISTS `uspGetBusiness`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetBusiness` ()  NO SQL
+SELECT * FROM business$$
+
 DROP PROCEDURE IF EXISTS `uspGetEventTickets`$$
 CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetEventTickets` ()  NO SQL
 SELECT * 
@@ -35,6 +39,15 @@ DROP PROCEDURE IF EXISTS `uspGetSponsors`$$
 CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetSponsors` ()  NO SQL
 SELECT *
 FROM sponsor$$
+
+DROP PROCEDURE IF EXISTS `uspUpdateBusiness`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspUpdateBusiness` (IN `busName` VARCHAR(50), IN `busLogo` VARCHAR(100), IN `busSlogan` VARCHAR(100), IN `vat` FLOAT, IN `busAddressID` INT, IN `busAboutUs` TEXT, IN `busDateFound` DATE)  BEGIN
+
+UPDATE business
+SET BusName = busName ,BusLogo = busLogo , BusSlogan = busSlogan, VAT = vat,
+ BusAddressID  = busAddressID, BusAboutUs = busAboutUs, BusDateFound = busDateFound;
+ 
+END$$
 
 DROP PROCEDURE IF EXISTS `uspUpdateSponsors`$$
 CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspUpdateSponsors` (IN `spoName` VARCHAR(100), IN `spoWebsite` VARCHAR(100), IN `spoPic` INT, IN `spoID` INT)  NO SQL
@@ -60,6 +73,13 @@ CREATE TABLE IF NOT EXISTS `business` (
   `BusAboutUs` text,
   `BusDateFound` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `business`
+--
+
+INSERT INTO `business` (`BusName`, `BusLogo`, `BusSlogan`, `VAT`, `BusAddressID`, `BusAboutUs`, `BusDateFound`) VALUES
+('Con.ect', NULL, NULL, 15, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
