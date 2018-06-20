@@ -11,8 +11,8 @@
  *
  * @author Haich
  */
-require_once('../model/DBHelper.php');
-require_once('../model/admin_model.php');
+require_once('../Model/DBHelper.php');
+require_once('../Model/admin_model.php');
 
 
 $action = filter_input(INPUT_POST, 'action');
@@ -22,7 +22,7 @@ if ($action == NULL) {
         $action = 'Vendor_details';
     }
 }
-
+$data = new admin_model();
 switch($action) {
 	case 'Vendor_details':
 		/*$category_ID = filter_input(INPUT_GET, 'category_id', 
@@ -45,4 +45,8 @@ switch($action) {
 		include '../View/Edit_Vendor.php';
 
 			break;
+        case 'show_business':
+		$business = $data-> get_business();
+		include('../View/business_details.php');
+		break;
 }//End switch 
