@@ -23,28 +23,51 @@ if ($action == NULL) {
     }
 }
 $data = new admin_model();
+
 switch($action) {
 	case 'Vendor_details':
-		/*$category_ID = filter_input(INPUT_GET, 'category_id', 
-            FILTER_SANITIZE_STRING);
-		if ($category_ID == NULL || $category_ID == FALSE) {
-			$category_ID = "1";
-		}
-		$categories = get_categories();
-		$products = get_products_by_category($category_ID);
-		$category_name = get_category_name($category_ID);*/
 		include('../View/Vendor_details.php');
 		break;
 	
+	case 'Add_Vendor':
+		$VenName = filter_input(INPUT_POST, 'vendor_name');
+		$VenDescription = filter_input(INPUT_POST, 'vendor_description');
+		$VenFacebook = filter_input(INPUT_POST, 'vendor_facebook');
+		$VenTwitter = filter_input(INPUT_POST, 'vendor_twitter');
+		$VenInstagram = filter_input(INPUT_POST, 'vendor_instagram');
+		$VenWebsite = filter_input(INPUT_POST, 'vendor_website');
+
+// Validate inputs
+		if ($vendor_name == null || $ven_description == null ||
+        	$ven_facebook == null || $ven_twitter == null || $ven_instagram == null || $ven_website == null) 
+                    {
+                        $error = "Invalid product data. Check all fields and try again.";
+                    }
+    		 else 
+                    {
+                        require_once('DBHelper.php');
+                    }
+
+    // Add the product to the database  
+   $vendor = $data->add_vendor($VenName, $VenDescription, $VenFacebook, $VenTwitter, $VenInstagram, $VenWebsite);
+
+		include('..View/Vendor_details.php');
+		break;
+
 	case 'Item Details':
 		include ('../View/Item Details.php');
 		break;
 
-		case 'EditVendor':
-		
+	case 'EditVendor':
 		include '../View/Edit_Vendor.php';
+		break;
 
-			break;
+	case 'get_vendors':
+		$vendors = $data-> get_vendors();
+		include('../View/Vendor_details.php');
+		break;
+
+
         case 'show_business':
 		$business = $data-> get_business();
 		include('../View/business_details.php');
