@@ -37,34 +37,34 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
 
 /*Region sponsors*/  
     public function get_sponsors() {
-        $stored_procedure ="CALL usp";
+        $stored_procedure ="CALL uspAllSponsors";
         return DBHelper::GetAll($stored_procedure);  
     }
     
     public function add_sponsor($spoName, $spoWebsite, $spoPicture) {
-        $stored_procedure ="CALL usp";
+        $stored_procedure ="CALL uspAddSponsor(:spoName, :spoWebsite, :spoPicture)";
         $params = array(
-         "" => $spoName,
-        ""=> $spoWebsite,
-        "" => $spoPicture
+         ":spoName" => $spoName,
+        ":spoWebsite"=> $spoWebsite,
+        ":spoPicture" => $spoPicture
         );
         return DBHelper::Execute($stored_procedure, $params);
     }
      public function edit_sponsor($spoID,$spoName, $spoWebsite, $spoPicture) {
-         $stored_procedure ="CALL usp";
+         $stored_procedure ="CALL uspEditSponsor(:spoID,:spoName, :spoWebsite, :spoPicture)";
          $params = array(
-        "" => $spoID,
-        "" => $spoName,
-        ""=> $spoWebsite,
-        "" => $spoPicture
+        ":spoID" => $spoID,
+        ":spoName" => $spoName,
+        ":spoWebsite"=> $spoWebsite,
+        ":spoPicture" => $spoPicture
         );
          return DBHelper::Execute($stored_procedure, $params);
     }
     
     public function get_sponsor($spoID) {
-        $stored_procedure ="CALL usp";
+        $stored_procedure ="CALL uspSponsor(:spoID)";
         $params = array(
-         "" => $spoID   
+         ":spoID" => $spoID   
         );
         return DBHelper::GetRow($stored_procedure, $params);
     }
@@ -72,39 +72,45 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
     
    
     /*Region: Events */
-    public function add_event($eveName, $eveStartDate, $eveAddress, $eveDescription, $eveEndDate) {
-        $stored_procedure ="CALL usp";
+    public function add_event($eveName, $eveStartDate, $eveAddress, $eveDescription, $eveEndDate, $ticOnePrice,$ticTwoPrice,$ticDesc) {
+        $stored_procedure ="CALL uspAddEvent(:eveName, :eveStartDate, :eveAddress, :eveDescription, :eveEndDate,:ticOnePrice,:ticTwoPrice,:ticDesc)";
         $params = array(
-        "" => $eveName,
-        "" => $eveStartDate,
-        "" => $eveAddress,
-        "" => $eveDescription,
-        "" => $eveEndDate
+        ":eveName" => $eveName,
+        ":eveStartDate" => $eveStartDate,
+        ":eveAddress" => $eveAddress,
+        ":eveDescription" => $eveDescription,
+        ":eveEndDate" => $eveEndDate,
+        ":ticOnePrice" => $ticOnePrice,
+        ":ticTwoPrice" => $ticTwoPrice,
+        ":ticDesc" => $ticDesc
         );
         return DBHelper::Execute($stored_procedure, $params);
     }
 
-    public function edit_event($eveID,$eveName, $eveStartDate, $eveAddress, $eveDescription, $eveEndDate) {
-        $stored_procedure ="CALL usp";
+    public function edit_event($eveID,$eveName, $eveStartDate, $eveAddress, $eveDescription, $eveEndDate, $ticOnePrice,$ticTwoPrice,$ticDesc) {
+        $stored_procedure ="CALL uspEditEvent(:eveID,:eveName, :eveStartDate, :eveAddress, :eveDescription, :eveEndDate,:ticOnePrice,:ticTwoPrice,:ticDesc)";
         $params = array(
         ""=> $eveID,
-        "" => $eveName,
-        "" => $eveStartDate,
-        "" => $eveAddress,
-        "" => $eveDescription,
-        "" => $eveEndDate
+        ":eveName" => $eveName,
+        ":eveStartDate" => $eveStartDate,
+        ":eveAddress" => $eveAddress,
+        ":eveDescription" => $eveDescription,
+        ":eveEndDate" => $eveEndDate,
+        ":ticOnePrice" => $ticOnePrice,
+        ":ticTwoPrice" => $ticTwoPrice,
+        ":ticDesc" => $ticDesc
         );
         return DBHelper::Execute($stored_procedure, $params);
     }
     public function get_events() {
-        $stored_procedure ="CALL usp";
+        $stored_procedure ="CALL uspAllEvents";
         return DBHelper::GetAll($stored_procedure);
     }
     
     public function get_event($eveID) {
-        $stored_procedure ="CALL usp";
+        $stored_procedure ="CALL uspEvent(:eveID)";
         $params = array(
-         "" => $eveID
+         ":eveID" => $eveID
         );
 
         return DBHelper::GetRow($stored_procedure, $params); 
@@ -118,20 +124,51 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
     
     
     /*Region: Gallery */
-    public function add_picture($param) {
-        $stored_procedure="CALL usp";
+    public function add_timeline($year, $time_desc,$images) {
+        $stored_procedure="CALL uspAddTimeline(:year, :time_desc)";
         $params = array(
-            
+          ":year"=>$year,
+          ":time_desc"=> $time_desc,
+        
         );
-        return DBHelper::Execute($stored_procedure, $params);
+        if( DBHelper::Execute($stored_procedure, $params)){
+            $array_count = count($images);
+            foreach ($images as $image){
+              $stored_procedure="CALL uspTimelinePicture(:image, :gal_date, img_desc)";
+              $params = array(
+          ":image"=>$image,
+          ":gal_date"=> $year,
+          "img_desc" => "Picture linked to year $year"
+        
+        );
+           if(DBHelper::Execute($stored_procedure, $params)){
+               $array_count --;
+           } 
+        }
+        return $array_count===0;
+        }
     }
     
-    public function remove_picture($param) {
+    public function edit_timeline($param) {
        $stored_procedure = "CALL usp";
        $params = array(
            
        );
        return DBHelper::Execute($sql, $params);
+    }
+    
+    public function get_timelines($param) {
+        $stored_procedure = "CALL usp";
+       $params = array(
+           
+       );
+    }
+    
+    public function get_timeline($param) {
+        $stored_procedure = "CALL usp";
+       $params = array(
+           
+       );
     }
     /*End Gallery*/
 }
