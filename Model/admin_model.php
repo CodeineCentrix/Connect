@@ -113,6 +113,29 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
  
     
     /*Region: business*/
+    public function EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs)
+    {
+        $stored_procedure ="CALL `uspUpdateBusiness`(:busName, :busLogo, :busSlogan,"
+                . " :busAddressID, :busAboutUs, :busDateFound);";
+        $params = array(
+            ':busName'=>$editBusName,
+            ':busLogo'=>$editBuslogo,
+            ':busSlogan'=>$editBusSlogan,
+            ':busAddressID'=>$editBusAddress,
+            ':busAboutUs'=>$editbusAboutUs,
+            ':busDateFound'=>$editBusDateFound
+        );
+        return DBHelper::Execute($stored_procedure, $params);
+    }
+       public function EditBusinessName( $editBusName)
+    {
+        $stored_procedure ="CALL uspUpdateBusiness(:busName);";
+        $params = array(
+            ':busName'=>$editBusName,
+        );
+        return DBHelper::Execute($stored_procedure, $params);
+    }
+    
       public function get_business() {
         $stored_procedure ="CALL uspGetBusiness()";
         return DBHelper::GetRow($stored_procedure);

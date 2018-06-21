@@ -49,4 +49,25 @@ switch($action) {
 		$business = $data-> get_business();
 		include('../View/business_details.php');
 		break;
+        case 'add_business':
+		$editBusName = filter_input(INPUT_POST, 'editBusName',FILTER_SANITIZE_STRING);
+		$editBusSlogan = filter_input(INPUT_POST, 'editBusSlogan',FILTER_SANITIZE_STRING);
+		$editBusDateFound = filter_input(INPUT_POST, 'BusDateFound',filter_v);
+		$editBuslogo = filter_input(INPUT_POST, 'editBuslogo',FILTER_SANITIZE_STRING);
+		$editBusAddress = filter_input(INPUT_POST, 'editBusAddress',FILTER_SANITIZE_STRING);
+		$editbusAboutUs = filter_input(INPUT_POST, 'editbusAboutUs',FILTER_SANITIZE_STRING);
+                $i = 5;
+                if($editBusName == FALSE || $editBusName == NULL)
+                {
+                    $editBusName = "jay z";
+                }
+		$data->EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs);
+//                IF($editBusName == FALSE || $editBus = NULL)
+//                {
+//                    $editBusName = 'Meeeeee';
+//                }
+//               $data->EditBusinessName($editBusName);
+               $business = $data-> get_business();
+		include('../View/business_details.php');
+                break;
 }//End switch 
