@@ -58,11 +58,6 @@ switch($action) {
 		$editbusAboutUs = filter_input(INPUT_POST, 'editBusAboutUs',FILTER_SANITIZE_STRING);
                
 		$data->EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound);
-//                IF($editBusName == FALSE || $editBus = NULL)
-//                {
-//                    $editBusName = 'Meeeeee';
-//                }
-//               $data->EditBusinessName($editBusName);
                $business = $data-> get_business();
 		include('../View/business_details.php');
                 break;
