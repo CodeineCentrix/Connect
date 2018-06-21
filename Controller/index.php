@@ -72,7 +72,7 @@ switch($action) {
 		$business = $data-> get_business();
 		include('../View/business_details.php');
 		break;
-        case 'add_business':
+        case 'edit_business':
 		$editBusName = filter_input(INPUT_POST, 'editBusName',FILTER_SANITIZE_STRING);
 		$editBusSlogan = filter_input(INPUT_POST, 'editBusSlogan',FILTER_SANITIZE_STRING);
 		$editBusDateFound = filter_input(INPUT_POST, 'editBusDateFound');
@@ -81,6 +81,7 @@ switch($action) {
 		$editbusAboutUs = filter_input(INPUT_POST, 'editBusAboutUs',FILTER_SANITIZE_STRING);
                
 		$data->EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound);
-               $business = $data-> get_business();
+                $business = $data-> get_business();
 		include('../View/business_details.php');
                 break;
+}
