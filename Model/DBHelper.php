@@ -62,6 +62,11 @@ class DBHelper {
 			$statement = $pdo_conn->prepare($sql);
 			//Execute query
 			$statement->execute($params);
+                        if (!$statement){
+                            return FALSE;  
+                        } elseif ($statement) {
+                            return TRUE;
+                        }
 		}//End try
 		catch (PDOException $e) 
 		{
