@@ -45,28 +45,24 @@ switch($action) {
 		include '../View/Edit_Vendor.php';
 
 			break;
+         //Going to the business page
         case 'show_business':
+                //getting the business attributes
 		$business = $data-> get_business();
 		include('../View/business_details.php');
 		break;
-        case 'add_business':
+        //editing the business attributes
+        case 'edit_business':
+                //getting the values from the business details view page
 		$editBusName = filter_input(INPUT_POST, 'editBusName',FILTER_SANITIZE_STRING);
 		$editBusSlogan = filter_input(INPUT_POST, 'editBusSlogan',FILTER_SANITIZE_STRING);
-		$editBusDateFound = filter_input(INPUT_POST, 'BusDateFound',filter_v);
+		$editBusDateFound = filter_input(INPUT_POST, 'editBusDateFound');
 		$editBuslogo = filter_input(INPUT_POST, 'editBuslogo',FILTER_SANITIZE_STRING);
 		$editBusAddress = filter_input(INPUT_POST, 'editBusAddress',FILTER_SANITIZE_STRING);
-		$editbusAboutUs = filter_input(INPUT_POST, 'editbusAboutUs',FILTER_SANITIZE_STRING);
-                $i = 5;
-                if($editBusName == FALSE || $editBusName == NULL)
-                {
-                    $editBusName = "jay z";
-                }
-		$data->EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs);
-//                IF($editBusName == FALSE || $editBus = NULL)
-//                {
-//                    $editBusName = 'Meeeeee';
-//                }
-//               $data->EditBusinessName($editBusName);
+		$editbusAboutUs = filter_input(INPUT_POST, 'editBusAboutUs',FILTER_SANITIZE_STRING);
+                //calling the edit method in the admin_model 
+		$data->EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound);
+                //reloading the page
                $business = $data-> get_business();
 		include('../View/business_details.php');
                 break;
