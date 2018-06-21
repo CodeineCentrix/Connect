@@ -15,9 +15,9 @@ class DBHelper {
     //put your code here
 	// Hold an instance of the PDO class
 	private static $conn;
-	private static $dsn = 'mysql:host=localhost;dbname=connect';
-    private static $username = '';
-    private static $password = '';
+	private static $dsn = 'mysql:host=localhost;dbname=conect';
+    private static $username = 'Anathi';
+    private static $password = 'Anathi123Anathi';
     
 	//Private constructor to prevent direct creation of object
 	private function _construct()
@@ -37,7 +37,7 @@ class DBHelper {
 			{
 				self::Close();
                 $error_message = $e->getMessage();
-                include('../errors/database_error.php');
+                include('../Errors/database_error.php');
                 exit();
             }
         }
@@ -72,7 +72,7 @@ class DBHelper {
 		{
                 self::Close();
 				$error_message = $e->getMessage();
-                include('../errors/database_error.php');
+                include('../Errors/database_error.php');
                 exit();
         }
 		
@@ -99,7 +99,7 @@ class DBHelper {
 		{
                 self::Close();
 				$error_message = $e->getMessage();
-                include('../errors/database_error.php');
+                include('../Errors/database_error.php');
                 exit();
         }
 		return $result;								
@@ -125,7 +125,7 @@ class DBHelper {
 		{
                 self::Close();
 				$error_message = $e->getMessage();
-                include('../errors/database_error.php');
+                include('../Errors/database_error.php');
                 exit();
         }
 		return $result;								

@@ -11,7 +11,7 @@
  *
  * @author Haich
  */
-include'../Model/DBHelper.php';
+
 class admin_model {
     //put your code here 
 public function add_vendor($vendor_name, $vendor_description, $face_account, $twit_account, $in_account, $web_link)
@@ -118,9 +118,35 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
     /*End Events Region*/
  
     
-    /*Region: */
+    /*Region: business*/
+    public function EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs)
+    {
+        $stored_procedure ="CALL `uspUpdateBusiness`(:busName, :busLogo, :busSlogan,"
+                . " :busAddressID, :busAboutUs, :busDateFound);";
+        $params = array(
+            ':busName'=>$editBusName,
+            ':busLogo'=>$editBuslogo,
+            ':busSlogan'=>$editBusSlogan,
+            ':busAddressID'=>$editBusAddress,
+            ':busAboutUs'=>$editbusAboutUs,
+            ':busDateFound'=>$editBusDateFound
+        );
+        return DBHelper::Execute($stored_procedure, $params);
+    }
+       public function EditBusinessName( $editBusName)
+    {
+        $stored_procedure ="CALL uspUpdateBusiness(:busName);";
+        $params = array(
+            ':busName'=>$editBusName,
+        );
+        return DBHelper::Execute($stored_procedure, $params);
+    }
     
-    /* End news coverage */
+      public function get_business() {
+        $stored_procedure ="CALL uspGetBusiness()";
+        return DBHelper::GetRow($stored_procedure);
+    }
+    /* End business */
     
     
     /*Region: Gallery */
@@ -151,10 +177,10 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
     
     public function edit_timeline($param) {
        $stored_procedure = "CALL usp";
-       $params = array(
+       $params = array($param
            
        );
-       return DBHelper::Execute($sql, $params);
+       return DBHelper::Execute($stored_procedure, $params);
     }
     
     public function get_timelines($param) {
@@ -171,4 +197,6 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
        );
     }
     /*End Gallery*/
+    
+  
 }
