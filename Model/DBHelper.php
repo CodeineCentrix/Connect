@@ -16,8 +16,8 @@ class DBHelper {
 	// Hold an instance of the PDO class
 	private static $conn;
 	private static $dsn = 'mysql:host=localhost;dbname=conect';
-    private static $username = 'root';
-    private static $password = '';
+    private static $username = 'Anathi';
+    private static $password = 'Anathi123Anathi';
     
 	//Private constructor to prevent direct creation of object
 	private function _construct()
@@ -61,16 +61,12 @@ class DBHelper {
 			//Prepare query for execution
 			$statement = $pdo_conn->prepare($sql);
 			//Execute query
-<<<<<<< HEAD
-			$execute = $statement->execute($params);
-=======
 			$statement->execute($params);
                         if (!$statement){
                             return FALSE;  
                         } elseif ($statement) {
                             return TRUE;
                         }
->>>>>>> 64d8b0cc70b4786a2612216fa29d0762597d7855
 		}//End try
 		catch (PDOException $e) 
 		{
