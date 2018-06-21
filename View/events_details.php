@@ -9,17 +9,26 @@
               #map {
                   
         width: 60%;
-        height: 100%;
+        height: 350px;
         margin: auto;
         padding:5px;
         overflow: hidden;
       }
       .create_event{
+          width: 100%;
           overflow: hidden;
-          height: 100%;
+          height: 100% !important;
           margin: 0;
           padding: 0;
           
+      }
+      body , html {
+          width: 100%;
+          height: 100% !important;
+          overflow: hidden;
+          overflow-y: auto;
+          margin: 0;
+          padding: 0;
       }
 
 
@@ -28,8 +37,23 @@
     <body>
         <h1>Events Management Page</h1>
         <p>This page is used to create, maintain and update con.ect events</p>
+        <?php if(isset($event_added)==TRUE):?>
+        <?php if($event_added===TRUE):?>
+        <p>Event has been Successfully added!</p>
+        <?php elseif($event_added===FALSE): ?>
+        <p>unfortunately, the event couldn't be added... Try again later. </p>
+        <?php endif; ?>
+        <?php endif;?>
+        
+        <?php if(isset($event_edited)==TRUE):?>
+        <?php if($event_edited===TRUE):?>
+        <p>Event has been Successfully edited!</p>
+        <?php elseif($event_edited==FALSE): ?>
+        <p>unfortunately, the event couldn't be edited... Try again later. </p>
+        <?php endif; ?>
+        <?php endif;?>
         <div class="create_event"> 
-            <form method="POST" action="../Controller/">
+            <form method="POST" action="../Controller/index.php?action=maintain_events">
                 
         <h2>Create an event here</h2>
         <label>Enter the event start date: </label>
@@ -44,7 +68,7 @@
         </textarea><br>
         
         <label>Enter the event address</label>
-        <input id="pac-in" class="contros" type="text" placeholder="Enter event Address here">
+        <input id="pac-in" class="contros" name="txtAddress" type="text" placeholder="Enter event Address here">
         <div id="map"></div><br>
         <label>Enter ticket information below</label>
         <label>Where will the tickets be sold? </label>
@@ -55,6 +79,7 @@
         <input type="number" required name="txtdaily_price"><br>
         <label>Price for Weekend Pass</label>
         <input type="number" required name="txtweekend_price"><br>
+        <input type="hidden" value="add_event" name="addEvent">
         <input type="submit" value="Create Event">
             
             </form>
@@ -139,44 +164,47 @@
         </div>
     
         <div class="edit_event">
-            <p>Here you can edit an event, the event needs to exist though.</p>
+            <h1>Here you can edit an event, the event needs to exist though.</h1>
             <label>Choose the Event Date</label>
-            <form action="POST" action="../Controller/">
-            <select>
-                <?php foreach ($ap as $ss): ?>
-                <option></option>
+            <form METHOD="POST" action="../Controller/index.php?action=maintain_events">
+            <select name="cmbEvent">
+                <?php foreach ($events_combo as $ss): ?>
+                <option value="<?php echo $ss["EveID"];?>"><?php echo $ss["EveName"];?></option>
                 <?php endforeach; ?>
             </select><br>
+            <input type="hidden" value="search_event" name="isSearch">
             <input type="submit" value="Get Event Details">
             </form>
-            <?php if(true): ?>
-            <form action="POST" action="../Controller/">
+            <?php if(isset($event_details)): ?>
+            <form METHOD="POST" action="../Controller/index.php?action=maintain_events">
                 <div>
         <label>Enter the event start date: </label>
-        <input  type="date" required name="dte_start_date" id="start_date" value="<?php echo ""; ?>"><br>
+        <input  type="date" required name="dte_start_date" id="start_date" value="<?php echo $event_details["EveStartDate"]; ?>"><br>
         <label>Enter the event end date:</label>
-        <input type="date" required name="dte_end_date" id="end_date" value="<?php echo ""; ?>"><br>
+        <input type="date" required name="dte_end_date" id="end_date" value="<?php echo $event_details["EveEndDate"]; ?>"><br>
         <label>Enter the event alias name</label>
-        <input type="text" name="txtAlias" required id="txtAlias" value="<?php echo ""; ?>"><br>
+        <input type="text" name="txtAlias" required id="txtAlias" value="<?php echo $event_details["EveName"]; ?>"><br>
         <label>Enter an optional event description below</label>
         <textarea name="txtDescription" required>
-           <?php echo ""; ?> 
+           <?php echo $event_details["EveDescription"]; ?> 
         </textarea><br>
         
         <label>Enter the event address</label>
-        <input id="pac-in" class="contros" type="text" placeholder="Enter event Address here" value="<?php echo ""; ?>">
+        <input id="pac-in" class="contros" type="text" name="txtAddress" placeholder="Enter event Address here" value="<?php echo $event_details["EveAddress"]; ?>">
         <div id="map"></div><br>
         <label>Enter ticket information below</label>
         <label>Where will the tickets be sold? </label>
         <textarea required name="txttickets_infos">
-            <?php echo ""; ?>
+          
+            <?php echo $event_details["TicDescription"]; ?>
         </textarea><br>
         <label>Price for Daily Ticket</label>
-        <input type="number" required name="txtdaily_price" value="<?php echo ""; ?>"><br>
+        <input type="number" required name="txtdaily_price" value="<?php echo $event_details["DailyTicket"]; ?>"><br>
         <label>Price for Weekend Pass</label>
-        <input type="number" required name="txtweekend_price" value="<?php echo ""; ?>"><br>
+        <input type="number" required name="txtweekend_price" value="<?php echo $event_details["WeekendTicket"]; ?>"><br>
+        <input type="hidden" value="update_true" name="isUpdate">
+        <input type="hidden" value="<?php echo $event_details["EveID"]?>" name="cur_event">
                     <input type="submit" value="Update Event">
-                    <input type="submit" value="Delete Event">
                 </div>
             </form>
             <?php endif;?>

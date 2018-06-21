@@ -90,7 +90,7 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
     public function edit_event($eveID,$eveName, $eveStartDate, $eveAddress, $eveDescription, $eveEndDate, $ticOnePrice,$ticTwoPrice,$ticDesc) {
         $stored_procedure ="CALL uspEditEvent(:eveID,:eveName, :eveStartDate, :eveAddress, :eveDescription, :eveEndDate,:ticOnePrice,:ticTwoPrice,:ticDesc)";
         $params = array(
-        ""=> $eveID,
+        ":eveID"=> $eveID,
         ":eveName" => $eveName,
         ":eveStartDate" => $eveStartDate,
         ":eveAddress" => $eveAddress,

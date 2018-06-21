@@ -70,4 +70,61 @@ switch($action) {
                $business = $data-> get_business();
 		include('../View/business_details.php');
                 break;
+                
+                
+                
+                
+                
+                
+                
+                /*Healings section fellas*/
+        case 'maintain_events':
+            //Check if user has entered data and is ready to add to the database
+           $events_combo = $data->get_events();
+            $test_input = filter_input(INPUT_POST, 'addEvent');
+            if (isset($test_input)) {
+                $event_start_date = filter_input(INPUT_POST, 'dte_start_date');
+                $event_end_date = filter_input(INPUT_POST, 'dte_end_date');
+                $event_name = filter_input(INPUT_POST, 'txtAlias');
+                $event_desc = filter_input(INPUT_POST, 'txtDescription');
+                $event_address = filter_input(INPUT_POST, 'txtAddress');
+                $ticket_desc = filter_input(INPUT_POST, 'txttickets_infos');
+                $first_price = filter_input(INPUT_POST, 'txtdaily_price');
+                $second_price = filter_input(INPUT_POST, 'txtweekend_price');
+                $event_added = $data->add_event($event_name, $event_start_date, $event_address, $event_desc,
+                        $event_end_date, $first_price, $second_price, $ticket_desc);
+            }
+            //check if you're simply retrieving event details
+            $test_input = filter_input(INPUT_POST, 'isSearch');
+            if(isset($test_input)){
+                $eveID = filter_input(INPUT_POST, 'cmbEvent');
+                $event_details = $data->get_event($eveID);               
+            }
+            //check if you're editing an event
+            $test_input = filter_input(INPUT_POST, 'isUpdate');
+             if(isset($test_input)){
+                $event_ID = filter_input(INPUT_POST, 'cur_event');
+                 $event_start_date = filter_input(INPUT_POST, 'dte_start_date');
+                $event_end_date = filter_input(INPUT_POST, 'dte_end_date');
+                $event_name = filter_input(INPUT_POST, 'txtAlias');
+                $event_desc = filter_input(INPUT_POST, 'txtDescription');
+                $event_address = filter_input(INPUT_POST, 'txtAddress');
+                $ticket_desc = filter_input(INPUT_POST, 'txttickets_infos');
+                $first_price = filter_input(INPUT_POST, 'txtdaily_price');
+                $second_price = filter_input(INPUT_POST, 'txtweekend_price');
+                $event_edited = $data->edit_event($event_ID,$event_name, $event_start_date, $event_address, $event_desc,
+                        $event_end_date, $first_price, $second_price, $ticket_desc);               
+            }
+            include'../View/events_details.php';
+            break;
+        
+        case 'maintain_timelines':
+            break;
+        
+        case 'maintain_sponsors':
+            break;
+        
+        case'maintain_sponsors':
+            break;
+                /*End Healings section*/
 }//End switch 

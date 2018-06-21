@@ -16,8 +16,8 @@ class DBHelper {
 	// Hold an instance of the PDO class
 	private static $conn;
 	private static $dsn = 'mysql:host=localhost;dbname=conect';
-    private static $username = 'Anathi';
-    private static $password = 'Anathi123Anathi';
+    private static $username = 'root';
+    private static $password = '';
     
 	//Private constructor to prevent direct creation of object
 	private function _construct()
