@@ -113,7 +113,7 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
  
     
     /*Region: business*/
-    public function EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs)
+    public function EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound)
     {
         $stored_procedure ="CALL `uspUpdateBusiness`(:busName, :busLogo, :busSlogan,"
                 . " :busAddressID, :busAboutUs, :busDateFound);";
