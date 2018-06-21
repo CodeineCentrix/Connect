@@ -14,11 +14,11 @@
 
 class admin_model {
     //put your code here 
-public function add_vendor($VenName, $VenDescription, $VenFacebook, $VenTwitter, $VenInstagram, $VenWebsite)
+public function add_vendor($vendor_name, $vendor_description, $face_account, $twit_account, $in_account, $web_link)
 {
-	$query = 'CALL uspAddVendor(:VenName, :VenDescription, :VenFacebook, :VenTwitter, :VenInstagram, :VenWebsite)';
-	$params = array(':VenName'=>$VenName, ':VenDescription'=>$VenDescription, ':VenFacebook'=>$VenFacebook, 'VenTwitter'=>$VenTwitter, ':VenInstagram'=>$VenInstagram, ':VenWebsite'=>$VenWebsite);
-	return DBHelper::Execute($query, $params); 
+	$query = 'CALL uspAddVendor(:vendor_name, :vendor_description, :face_account, :twit_account, :in_account, :web_link)';
+	$params = array(':vendor_name'=>$vendor_name, ':vendor_description'=>$vendor_description, ':face_account'=>$face_account, 'twit_account'=>$twit_account, ':in_account'=>$in_account, ':web_link'=>$web_link);
+	DBHelper::Execute($query, $params);
 }
 public function edit_vendor($vendor_name, $vendor_description, $face_account, $twit_account, $in_account, $web_link)
 {
@@ -119,7 +119,7 @@ public function add_item_details($item_name, $item_description, $item_quantity, 
  
     
     /*Region: business*/
-    public function EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound)
+    public function EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs)
     {
         $stored_procedure ="CALL `uspUpdateBusiness`(:busName, :busLogo, :busSlogan,"
                 . " :busAddressID, :busAboutUs, :busDateFound);";
