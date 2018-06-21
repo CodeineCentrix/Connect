@@ -52,16 +52,12 @@ switch($action) {
         case 'add_business':
 		$editBusName = filter_input(INPUT_POST, 'editBusName',FILTER_SANITIZE_STRING);
 		$editBusSlogan = filter_input(INPUT_POST, 'editBusSlogan',FILTER_SANITIZE_STRING);
-		$editBusDateFound = filter_input(INPUT_POST, 'BusDateFound',filter_v);
+		$editBusDateFound = filter_input(INPUT_POST, 'editBusDateFound');
 		$editBuslogo = filter_input(INPUT_POST, 'editBuslogo',FILTER_SANITIZE_STRING);
 		$editBusAddress = filter_input(INPUT_POST, 'editBusAddress',FILTER_SANITIZE_STRING);
-		$editbusAboutUs = filter_input(INPUT_POST, 'editbusAboutUs',FILTER_SANITIZE_STRING);
-                $i = 5;
-                if($editBusName == FALSE || $editBusName == NULL)
-                {
-                    $editBusName = "jay z";
-                }
-		$data->EditBusiness( $editBusName, $editBusSlogan, $editBusDateFound,$editBuslogo,$editBusAddress,$editbusAboutUs);
+		$editbusAboutUs = filter_input(INPUT_POST, 'editBusAboutUs',FILTER_SANITIZE_STRING);
+               
+		$data->EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound);
 //                IF($editBusName == FALSE || $editBus = NULL)
 //                {
 //                    $editBusName = 'Meeeeee';
