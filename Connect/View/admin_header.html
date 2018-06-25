@@ -1,0 +1,66 @@
+<html>
+<head>
+<style>
+header {background-color: blue;
+    position:relative ;
+    top: 0;
+	left:0;
+    width: 100%;
+	padding-left: 0px;
+    }
+header a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 15px;
+}
+
+ul  {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.headertoplist .headeritem {display: inline-block;}
+.headertoplist .headeritem:hover {background: #555;}
+.headertoplist .headeritem:hover .headerseclist {display: block;}
+.headertoplist .headeritem .headerseclist {
+  position: absolute;
+  width: 200px;
+  display: none;
+}
+.headertoplist  .headeritem .headerseclist li { 
+  background: #555; 
+  display: block; 
+}
+.headertoplist  .headeritem .headerseclist li a {display:block !important;} 
+.headertoplist  .headeritem .headerseclist li:hover {background: #666;}
+
+.home
+{
+background-color: black;
+}
+
+</style>
+<link rel="stylesheet" href="../stylesheets/admin_pages.css">
+</head>
+<body>
+
+<header>
+  <ul class="headertoplist">
+  <li class="home headeritem"><a href="?action=show_home">Home</a></li>
+   <li class="headeritem"><a href="?action=maintain_sponsors">Sponsors</a></li>
+    <li class="headeritem">
+      <a>Vendors</a>
+      <ul class="headerseclist">
+        <li><a href="?action=Vendor_details">Add</a></li>
+        <li><a href="?action=show_edit_vendor">Edit</a></li>
+      </ul>
+    </li>
+    <li class="headeritem"><a href="?action=maintain_events">Events</a></li>
+    <li class="headeritem"><a href="?action=show_business">Activities</a></li>
+    <li class="headeritem"><a href="?action=show_business">Conect</a></li>
+  </ul>
+</header>
+
+</body>
+</html>
